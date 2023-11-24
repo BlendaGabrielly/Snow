@@ -10,6 +10,9 @@ SCREEN_WIDTH, SCREEN_HEIGHT = love.window.getMode()
 WALL_SIZE = 5
 
 mundo = windfield.newWorld(0,0)
+mundo:addCollisionClass('neve')
+mundo:addCollisionClass('vencer')
+
 mapa = sti("mapa.lua")
 
 -- Defina as variáveis iniciais
@@ -18,7 +21,7 @@ local player = {
     y = 100,
     w = 20, -- largura do jogador
     h = 20, -- altura do jogador
-    speed = 70 -- velocidade em pixels por segundo
+    speed = 150 -- velocidade em pixels por segundo
 }
 -- Dimensões da imagem (presumo que 'imagem' seja a imagem do jogador)
 local imagem = love.graphics.newImage("/imagens/Jogador.png")
@@ -50,6 +53,7 @@ for idx, obj in ipairs(mapa.layers['obstaculos'].objects) do
      )
      obst:setType('static')
      obst:setFriction(0)
+     obst:setCollisionClass('neve')
  end
 
  for idx, obj in ipairs(mapa.layers['chegada'].objects) do
@@ -61,6 +65,7 @@ for idx, obj in ipairs(mapa.layers['obstaculos'].objects) do
      )
      chegada:setType('static')
      chegada:setFriction(0)
+     chegada:setCollisionClass('vencer')
  end
 
 -- Dimensões do mapa
@@ -94,7 +99,15 @@ function love.update(dt)
         vx = player.speed
     -- Ajusta a câmera para seguir o jogador
     end
-    
+
+    if player.collider:enter('neve') then
+        love.event.quit()
+        Gamestate.switch(menu)
+
+    elseif player.collider:enter('vencer') then
+        ---Gamestate.switch(vitoria)
+        love.event.quit()
+    end
     player.collider:setLinearVelocity(vx, vy)
     mundo:update(dt)
    -- local x, y = player:getPosition()
@@ -118,9 +131,3 @@ function love.draw()
     cam:detach()
 end
 
--- Função chamada quando uma tecla é pressionada
-function love.keypressed(key)
-    if key == "space" then
-        love.event.quit()
-    end
-end
