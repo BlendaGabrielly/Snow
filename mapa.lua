@@ -22,7 +22,7 @@ return {
       spacing = 0,
       margin = 0,
       columns = 12,
-      image = "Tiled.png",
+      image = "imagens/Tiled.png",
       imagewidth = 192,
       imageheight = 176,
       objectalignment = "unspecified",
@@ -53,7 +53,7 @@ return {
       id = 1,
       name = "base",
       class = "",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -373,7 +373,7 @@ return {
       id = 2,
       name = "pista",
       class = "",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -690,7 +690,7 @@ return {
       id = 5,
       name = "colisores",
       class = "",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -1947,19 +1947,6 @@ return {
           properties = {}
         },
         {
-          id = 116,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 16,
-          y = 2608,
-          width = 96,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
           id = 117,
           name = "",
           type = "",
@@ -2168,19 +2155,6 @@ return {
           properties = {}
         },
         {
-          id = 137,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 352,
-          y = 2944,
-          width = 48,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
           id = 138,
           name = "",
           type = "",
@@ -2241,19 +2215,6 @@ return {
           y = 3168,
           width = 64,
           height = 16,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 143,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 432,
-          y = 3184,
-          width = 48,
-          height = 0,
           rotation = 0,
           visible = true,
           properties = {}
@@ -3504,7 +3465,7 @@ return {
       id = 6,
       name = "enfeites",
       class = "",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -3824,7 +3785,7 @@ return {
       id = 7,
       name = "obstaculos",
       class = "",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -4141,7 +4102,7 @@ return {
       id = 8,
       name = "obstaculos",
       class = "",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -4300,7 +4261,7 @@ return {
       id = 9,
       name = "chegada",
       class = "",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -4325,4 +4286,3 @@ return {
     }
   }
 }
-
