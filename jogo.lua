@@ -41,6 +41,27 @@ for idx, obj in ipairs(mapa.layers['colisores'].objects) do
     pista:setFriction(0)
 end
 
+for idx, obj in ipairs(mapa.layers['obstaculos'].objects) do
+    local obst = mundo:newBSGRectangleCollider(
+        obj.x,
+        obj.y,
+        obj.width,
+         obj.height, 5
+     )
+     obst:setType('static')
+     obst:setFriction(0)
+ end
+
+ for idx, obj in ipairs(mapa.layers['chegada'].objects) do
+    local chegada = mundo:newBSGRectangleCollider(
+        obj.x,
+        obj.y,
+        obj.width,
+         obj.height, 5
+     )
+     chegada:setType('static')
+     chegada:setFriction(0)
+ end
 
 -- Dimensões do mapa
 local larguraDoMapa = 1000
@@ -73,6 +94,7 @@ function love.update(dt)
         vx = player.speed
     -- Ajusta a câmera para seguir o jogador
     end
+    
     player.collider:setLinearVelocity(vx, vy)
     mundo:update(dt)
    -- local x, y = player:getPosition()
@@ -85,7 +107,7 @@ function love.draw()
     mapa:drawLayer(mapa.layers['base'])
     mapa:drawLayer(mapa.layers['pista'])
     mapa:drawLayer(mapa.layers['enfeites'])
-    mapa:drawLayer(mapa.layers['obstaculos'])
+    mapa:drawLayer(mapa.layers['obstaculos desenho'])
 
     mundo:draw()
 
