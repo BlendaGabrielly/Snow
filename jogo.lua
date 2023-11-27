@@ -13,6 +13,9 @@ mundo = windfield.newWorld(0,0)
 mundo:addCollisionClass('neve')
 mundo:addCollisionClass('vencer')
 
+x = 0
+y =0
+
 mapa = sti("mapa.lua")
 
 -- Defina as variáveis iniciais
@@ -27,8 +30,7 @@ local player = {
 local imagem = love.graphics.newImage("/imagens/Jogador.png")
 
 player.collider = mundo:newCircleCollider(
-    --{player.x, player.y+10, player.x -20, player.y, player.x +20, player.y}
-    player.x, player.y, 15
+    player.x, player.y, 10
 )
 player.collider:setFixedRotation(true)
 player.collider:setFriction(0)
@@ -76,20 +78,27 @@ local alturaDoMapa = 600
 local SCREEN_WIDTH, SCREEN_HEIGHT = love.window.getMode()
 
 -- Função chamada uma vez no início do jogo
-function love.load()
+function jogando:enter()
+     
     -- Configure a posição inicial do jogador no meio da tela
-    player.x = SCREEN_WIDTH / 2 - player.w / 2
-    player.y = SCREEN_HEIGHT / 2 - player.h / 2
+    player.collider:setX(240)
+    player.collider:setY (100)
 
     -- Configura as dimensões do mapa para a escala correta
     local escalaX = larguraDoMapa / SCREEN_WIDTH
     local escalaY = alturaDoMapa / SCREEN_HEIGHT
+
+    musica:play()
 end
 
--- Função de atualização
-function love.update(dt)
-    local vx, vy = 0, player.speed
 
+-- Função de atualização
+function jogando:update(dt)
+    local vx, vy = 0, player.speed
+    
+    --if not love.audio.isPlaying(musica) then
+       -- love.audio.play(musica)
+   -- end
     player.x, player.y = player.collider:getPosition()
     if love.keyboard.isDown("left") then
         print("Tecla left pressionada")
@@ -101,12 +110,19 @@ function love.update(dt)
     end
 
     if player.collider:enter('neve') then
-        love.event.quit()
+       --love.event.quit()
+        dead=true
+        --jogo.stop()
+        musica:stop()
+        derrota:play()
         Gamestate.switch(menu)
 
     elseif player.collider:enter('vencer') then
-        ---Gamestate.switch(vitoria)
-        love.event.quit()
+        dead = false
+        vitoria=true
+        musica:stop()
+        Gamestate.switch(menu)
+        vity:play()
     end
     player.collider:setLinearVelocity(vx, vy)
     mundo:update(dt)
@@ -115,14 +131,14 @@ function love.update(dt)
   end
 
 -- Função de desenho
-function love.draw()
+function jogando:draw()
     cam:attach()
     mapa:drawLayer(mapa.layers['base'])
     mapa:drawLayer(mapa.layers['pista'])
     mapa:drawLayer(mapa.layers['enfeites'])
     mapa:drawLayer(mapa.layers['obstaculos desenho'])
 
-    mundo:draw()
+   -- mundo:draw()
 
     -- Desenha o jogador na tela
     love.graphics.draw(imagem, player.x, player.y, 0, 1, 1, player.w/2, player.h/2)

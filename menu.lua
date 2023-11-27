@@ -4,8 +4,11 @@ menu = {}
 --primeira vez que entra no jogo
 --quando esse arquivo é carregado
 -- dead é false, pois o player nao foi morto ainda
-local dead = false
-
+dead = false
+vitoria=false
+menuSnow = love.graphics.newImage("/imagens/menu.png")
+ganhouimg = love.graphics.newImage("/imagens/ganhou.png")
+perdeu_img = love.graphics.newImage("/imagens/perdeu.png")
 --mas quando ele sair dessa tela
 --vou dizer que ele esta morto, pois a proxima vez que entrar
 --nessa tela ele vai estar morto de fato
@@ -18,14 +21,20 @@ end
 
 function menu:draw()
     if dead then
-        love.graphics.print("Voce morreu!")
+        love.graphics.draw(perdeu_img, 0, 0, 0, 1.17)
+        return
+    end 
+    
+    if vitoria then
+        love.graphics.draw(ganhouimg, 0, 0, 0, 1.17)
+        return
     end
-    love.graphics.print("\nPressione espaco para jogar")
+     --love.graphics.print(SCREEN_WIDTH)
+    love.graphics.draw(menuSnow, 0, 0, 0, 1.17)
+    
 end
-
-
 function menu:keypressed(key)
     if key == 'space' then
-       Gamestate.switch(jogo)
+       Gamestate.switch(jogando)
     end
 end
